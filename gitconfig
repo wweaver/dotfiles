@@ -1,0 +1,14 @@
+[user]
+	name = Will Weaver
+	email = will.weaver@gmail.com
+[push]
+	default = simple
+[core]
+	editor = /Applications/MacVim.app/Contents/MacOS/Vim
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[web]
+	browser = safari
+
+[browser "safari"]
+    cmd = open -a /Applications/Safari.app
