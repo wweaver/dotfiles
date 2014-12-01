@@ -95,3 +95,7 @@ function on() {
     curl -X POST --data-urlencode "task=$*" "https://api.workingon.co/hooks/incoming?token=$WORKING_ON_TOKEN" >/dev/null 2>&1;
     echo "Task sent.";
 }
+
+
+GITDIR=~/git
+DEVDIR=~/dev
