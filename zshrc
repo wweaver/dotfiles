@@ -69,7 +69,7 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# Load anything that contains passwords or secret tokens
+# Load anything that shouldn't be uploaded to public github
 . ~/.zsh_secrets
 
 export JIRA_URL=https://pet360.atlassian.net
