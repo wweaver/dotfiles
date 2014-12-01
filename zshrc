@@ -88,3 +88,10 @@ alias pprod="echo $POSTGRES_PROD_CMD; echo; $POSTGRES_PROD_CMD"
 unalias run-help
 autoload run-help
 HELPDIR=/usr/local/share/zsh/help
+
+
+# WorkingOn script
+function on() {
+    curl -X POST --data-urlencode "task=$*" "https://api.workingon.co/hooks/incoming?token=$WORKING_ON_TOKEN" >/dev/null 2>&1;
+    echo "Task sent.";
+}
