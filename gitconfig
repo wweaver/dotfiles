@@ -5,10 +5,18 @@
 	default = simple
 [core]
 	editor = /Applications/MacVim.app/Contents/MacOS/Vim
+	excludesfile = /Users/wweaver/.gitignore_global
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    tidy = !git remote prune origin && git branch -r --merged master | egrep -v 'master|staging$' | sed 's%origin/%%' | xargs -I% git push origin :% && git branch --merged master | egrep -v 'master|staging$' | xargs git branch -d
 [web]
 	browser = safari
 
 [browser "safari"]
     cmd = open -a /Applications/Safari.app
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
