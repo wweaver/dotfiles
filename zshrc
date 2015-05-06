@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="rkj-repos"
+ZSH_THEME="gnzh-custom"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -44,58 +44,66 @@ ZSH_THEME="rkj-repos"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git colorize brew jira osx vagrant more-osx git-flow git-hubflow gitignore)
+
+HOSTNAME=$(hostname);
+
+if [ $HOSTNAME = 'Wills-MacBook-Pro.local' ] || [ $HOSTNAME = 'Wills-MBP.home' ]; then
+    machine_type='main'
+else
+    machine_type='ssh'
+fi
+
+if [[ $machine_type = 'main' ]]; then
+    export EDITOR='mvim'
+    plugins=(git brew jira osx vagrant more-osx git-flow git-hubflow gitignore)
+else
+    export EDITOR='vim'
+    plugins=(git colorize gitignore)
+fi
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-# export MANPATH="/usr/local/man:$MANPATH"
+if [[ $machine_type = 'main' ]]; then
+    export PATH="/Users/wweaver/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    # export MANPATH="/usr/local/man:$MANPATH"
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+    # You may need to manually set your language environment
+    # export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+    # Preferred editor for local and remote sessions
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+    # Compilation flags
+    # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
+    # ssh
+    # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# Load anything that shouldn't be uploaded to public github
-. ~/.zsh_secrets
+    # Load anything that shouldn't be uploaded to public github
+    if [ -e ~/.zsh_secrets ]; then
+        . ~/.zsh_secrets
+    fi
 
-export JIRA_URL=https://pet360.atlassian.net
+    export JIRA_URL=https://cruisecritic.atlassian.net
 
-# aliases
-alias v="vagrant"
-alias vcd="cd ~/dev/vagrant"
-alias vipython="~/dev/python/env/bin/ipython"
-alias NFI='cd /Volumes/production/NFI'
+    # aliases
+    alias v="vagrant"
+    alias vcd="cd ~/git/cruisecritic-vm"
+    alias vsh="vcd; vagrant ssh"
+    alias colorize="pygmentize -f terminal256 -O style=vim"
+    alias reset_launchpad="defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock"
+    alias vipython="~/dev/python/env/bin/ipython"
 
-# Postgres commands defined in ~/.zsh_secrets
-alias pdev="echo $POSTGRES_DEV_CMD; echo; $POSTGRES_DEV_CMD"
-alias pprod="echo $POSTGRES_PROD_CMD; echo; $POSTGRES_PROD_CMD"
+    # Add better zsh help
+    unalias run-help
+    autoload run-help
+    HELPDIR=/usr/local/share/zsh/help
 
-# Add better zsh help
-unalias run-help
-autoload run-help
-HELPDIR=/usr/local/share/zsh/help
+    GITDIR=~/git
 
 
-# WorkingOn script
-function on() {
-    curl -X POST --data-urlencode "task=$*" "https://api.workingon.co/hooks/incoming?token=$WORKING_ON_TOKEN" >/dev/null 2>&1;
-    echo "Task sent.";
-}
-
-
-GITDIR=~/git
-DEVDIR=~/dev
+    export PATH="./bin:$PATH"
+    export RBENV_ROOT=/usr/local/var/rbenv
+    eval "$(rbenv init - --no-rehash)" # load rbenv in the current shell
+fi
