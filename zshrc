@@ -47,7 +47,7 @@ ZSH_THEME="gnzh-custom"
 
 HOSTNAME=$(hostname);
 
-if [ $HOSTNAME = 'Wills-MacBook-Pro.local' ] || [ $HOSTNAME = 'Wills-MBP.home' ]; then
+if [[ $HOSTNAME == Wills-MacBook-Pro.* ]] || [[ $HOSTNAME == Wills-MBP.* ]] || [[ $HOSTNAME == wills-mbp.* ]]; then
     machine_type='main'
 else
     machine_type='ssh'
@@ -55,7 +55,7 @@ fi
 
 if [[ $machine_type = 'main' ]]; then
     export EDITOR='mvim'
-    plugins=(git brew jira osx vagrant more-osx git-flow git-hubflow gitignore)
+    plugins=(git brew osx vagrant more-osx git-hubflow gitignore composer httpie git-flow jira node npm sudo wd)
 else
     export EDITOR='vim'
     plugins=(git colorize gitignore)
@@ -66,7 +66,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 if [[ $machine_type = 'main' ]]; then
-    export PATH="/Users/wweaver/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    export PATH="/Users/wweaver/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin"
     # export MANPATH="/usr/local/man:$MANPATH"
 
     # You may need to manually set your language environment
@@ -85,15 +85,18 @@ if [[ $machine_type = 'main' ]]; then
         . ~/.zsh_secrets
     fi
 
-    export JIRA_URL=https://cruisecritic.atlassian.net
+    export JIRA_URL=https://jira.tripadvisor.com
 
     # aliases
+    alias vi=vim
+    alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
     alias v="vagrant"
     alias vcd="cd ~/git/cruisecritic-vm"
     alias vsh="vcd; vagrant ssh"
-    alias colorize="pygmentize -f terminal256 -O style=vim"
+    alias colorize="pygmentize -f terminal256 -O style=igor"
+    # alias colorize="pygmentize -f terminal256 -O style=vim"
     alias reset_launchpad="defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock"
-    alias vipython="~/dev/python/env/bin/ipython"
+    alias vipython=". ~/dev/python/venv/bin/activate; ipython; deactivate"
 
     # Add better zsh help
     unalias run-help
@@ -103,7 +106,11 @@ if [[ $machine_type = 'main' ]]; then
     GITDIR=~/git
 
 
-    export PATH="./bin:$PATH"
+    export PATH="./bin:$PATH:./vendor/bin"
     export RBENV_ROOT=/usr/local/var/rbenv
     eval "$(rbenv init - --no-rehash)" # load rbenv in the current shell
 fi
+
+
+export NVM_DIR="/Users/wweaver/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

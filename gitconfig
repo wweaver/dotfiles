@@ -8,7 +8,8 @@
 	excludesfile = /Users/wweaver/.gitignore_global
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-    tidy = !git remote prune origin && git branch -r --merged master | egrep -v 'master|staging$' | sed 's%origin/%%' | xargs -I% git push origin :% && git branch --merged master | egrep -v 'master|staging$' | xargs git branch -d
+	tidy = !git remote prune origin && git branch -r --merged master | egrep -v 'master|staging$' | sed 's%origin/%%' | xargs -I% git push origin :% && git branch --merged master | egrep -v 'master|staging$' | xargs git branch -d
+	amend = commit --amend
 [web]
 	browser = safari
 

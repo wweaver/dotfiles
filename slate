@@ -15,54 +15,82 @@ alias bottomright corner bottom-right resize:screenSizeX/2;screenSizeY/2
 
 alias middle move screenSizeX/6;screenSizeY/6 screenSizeX/3*2;screenSizeY/3*2
 
+alias topthird move screenOriginX;screenOriginY screenSizeX;screenSizeY/3
+alias middlethird move screenOriginX;screenOriginY+screenSizeY/3 screenSizeX;screenSizeY/3
+alias bottomthird move screenOriginX;screenOriginY+screenSizeY*2/3 screenSizeX;screenSizeY/3
+
+alias toptwothirds move screenOriginX;screenOriginY screenSizeX;screenSizeY*2/3
+alias middletwothirds move screenOriginX;screenOriginY+screenSizeY/6 screenSizeX;screenSizeY*2/3
+alias bottomtwothirds move screenOriginX;screenOriginY+screenSizeY/3 screenSizeX;screenSizeY*2/3
+
+alias toponequarter move screenOriginX;screenOriginY screenSizeX;screenSizeY*1/4
+alias middlethreequarters move screenOriginX;screenOriginY+screenSizeY/8 screenSizeX;screenSizeY*3/4
+alias bottomthreequarters move screenOriginX;screenOriginY+screenSizeY/4 screenSizeX;screenSizeY*3/4
+
+alias rightthreequarters move screenOriginX+screenSizeX*1/4;screenOriginY screenSizeX*3/4;screenSizeY
+alias leftthreequarters move screenOriginX;screenOriginY screenSizeX*3/4;screenSizeY
+
+
 # Monitors
-alias mon-top 0
-alias mon-laptop 1
+alias mon-laptop 0
+alias mon-middle 1
 alias mon-right 2
 
 # Resize Bindings
-bind right:ctrl;alt       ${righthalf}
-bind left:ctrl;alt        ${lefthalf}
-bind up:ctrl;alt          ${full}
-bind down:ctrl;alt        ${bottomhalf}
+bind right:ctrl;alt  ${righthalf}
+bind left:ctrl;alt   ${lefthalf}
+bind up:ctrl;alt     ${full}
+bind down:ctrl;alt   ${bottomhalf}
 
-bind j:ctrl;alt           ${lefthalf}
-bind k:ctrl;alt           ${tophalf}
-bind l:ctrl;alt           ${bottomhalf}
-bind ;:ctrl;alt           ${righthalf}
-bind u:ctrl;alt           ${full}
-bind o:ctrl;alt           ${tophalf}
-bind ,:ctrl;alt           ${bottomhalf}
+bind j:ctrl;alt  ${lefthalf}
+bind k:ctrl;alt  ${tophalf}
+bind l:ctrl;alt  ${bottomhalf}
+bind ;:ctrl;alt  ${righthalf}
+bind u:ctrl;alt  ${full}
+bind o:ctrl;alt  ${tophalf}
+bind ,:ctrl;alt  ${bottomhalf}
 
-bind i:ctrl;alt           ${topleft}
-bind p:ctrl;alt           ${topright}
-bind m:ctrl;alt           ${bottomleft}
-bind .:ctrl;alt           ${bottomright}
+bind i:ctrl;alt  ${topleft}
+bind p:ctrl;alt  ${topright}
+bind m:ctrl;alt  ${bottomleft}
+bind .:ctrl;alt  ${bottomright}
 
-bind right:ctrl;alt;cmd   ${bottomright}
-bind left:ctrl;alt;cmd    ${topleft}
-bind up:ctrl;alt;cmd      ${topright}
-bind down:ctrl;alt;cmd    ${bottomleft}
+bind right:ctrl;alt;cmd  ${bottomright}
+bind left:ctrl;alt;cmd   ${topleft}
+bind up:ctrl;alt;cmd     ${topright}
+bind down:ctrl;alt;cmd   ${bottomleft}
 
-bind pad1:ctrl            ${bottomleft}
-bind pad2:ctrl            ${bottomhalf}
-bind pad3:ctrl            ${bottomright}
-bind pad4:ctrl            ${lefthalf}
-bind pad5:ctrl            ${full}
-bind pad6:ctrl            ${righthalf}
-bind pad7:ctrl            ${topleft}
-bind pad8:ctrl            ${tophalf}
-bind pad9:ctrl            ${topright}
-bind pad+:ctrl            throw next
-bind pad5:ctrl;alt        ${middle}
+bind pad1:ctrl  ${bottomleft}
+bind pad2:ctrl  ${bottomhalf}
+bind pad3:ctrl  ${bottomright}
+bind pad4:ctrl  ${lefthalf}
+bind pad5:ctrl  ${full}
+bind pad6:ctrl  ${righthalf}
+bind pad7:ctrl  ${topleft}
+bind pad8:ctrl  ${tophalf}
+bind pad9:ctrl  ${topright}
+bind pad+:ctrl  throw next
 
 
-bind 1:ctrl throw ${mon-top}
-bind 2:ctrl throw ${mon-right}
-bind 3:ctrl throw ${mon-laptop}
+bind pad1:ctrl;alt  ${bottomtwothirds}
+bind pad2:ctrl;alt  ${bottomthird}
+bind pad3:ctrl;alt  ${bottomthreequarters}
+
+bind pad4:ctrl;alt  ${leftthreequarters}
+bind pad5:ctrl;alt  ${middlethird}
+bind pad6:ctrl;alt  ${rightthreequarters}
+
+bind pad7:ctrl;alt  ${toptwothirds}
+bind pad8:ctrl;alt  ${topthird}
+bind pad9:ctrl;alt  ${toponequarter}
+
+
+bind 1:ctrl throw ${mon-laptop}
+bind 2:ctrl throw ${mon-middle}
+bind 3:ctrl throw ${mon-right}
 
 # Window Hints
-bind esc:cmd hint
+# bind esc:cmd hint
 
 # Show Grid (only works on primary window for some reason)
-bind esc:ctrl grid padding:5 1920x1080:6,2 1440x900:4,2
+# bind esc:ctrl grid padding:5 1920x1080:6,2 1440x900:4,2
