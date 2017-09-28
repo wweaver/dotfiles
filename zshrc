@@ -55,7 +55,7 @@ fi
 
 if [[ $machine_type = 'main' ]]; then
     export EDITOR='mvim'
-    plugins=(git brew osx vagrant more-osx git-hubflow gitignore composer httpie git-flow jira node npm sudo wd)
+    plugins=(git osx vagrant more-osx git-hubflow gitignore composer httpie git-flow jira node npm sudo wd git-open)
 else
     export EDITOR='vim'
     plugins=(git colorize gitignore)
@@ -66,7 +66,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 if [[ $machine_type = 'main' ]]; then
-    export PATH="/Users/wweaver/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin"
+    export PATH="/Users/wweaver/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:.bin/:$PATH:./vendor/bin"
     # export MANPATH="/usr/local/man:$MANPATH"
 
     # You may need to manually set your language environment
@@ -97,6 +97,7 @@ if [[ $machine_type = 'main' ]]; then
     # alias colorize="pygmentize -f terminal256 -O style=vim"
     alias reset_launchpad="defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock"
     alias vipython=". ~/dev/python/venv/bin/activate; ipython; deactivate"
+    alias generate_api_key='env LC_CTYPE=C tr -dc "a-z0-9" < /dev/urandom | head -c 64 && echo'
 
     # Add better zsh help
     unalias run-help
@@ -106,11 +107,17 @@ if [[ $machine_type = 'main' ]]; then
     GITDIR=~/git
 
 
-    export PATH="./bin:$PATH:./vendor/bin"
     export RBENV_ROOT=/usr/local/var/rbenv
     eval "$(rbenv init - --no-rehash)" # load rbenv in the current shell
+
+    export NVM_DIR="/Users/wweaver/.nvm"
+    #[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+    alias activate_nvm="source $NVM_DIR/nvm.sh"
+
+    test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 fi
 
-
-export NVM_DIR="/Users/wweaver/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+whiteboard ()
+{
+    convert "$1" -morphology Convolve DoG:15,100,0 -negate -normalize -blur 0x1 -channel RBG -level 60%,91%,0.1 "$2"
+}
