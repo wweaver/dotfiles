@@ -4,7 +4,7 @@
 [push]
 	default = simple
 [core]
-	editor = /Applications/MacVim.app/Contents/MacOS/Vim
+	editor = /usr/local/bin/nvim
 	excludesfile = /Users/wweaver/.gitignore_global
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
