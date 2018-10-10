@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="gnzh-custom"
+ZSH_THEME="candy"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -47,15 +47,15 @@ ZSH_THEME="gnzh-custom"
 
 HOSTNAME=$(hostname);
 
-if [[ $HOSTNAME == Wills-MacBook-Pro.* ]] || [[ $HOSTNAME == Wills-MBP.* ]] || [[ $HOSTNAME == wills-mbp.* ]]; then
+if [[ $HOSTNAME == Wills-MacBook-Pro.* ]] || [[ $HOSTNAME == Wills-MBP.* ]] || [[ $HOSTNAME == wills-mbp.* ]] || [[ $HOSTNAME == wweaver-MBP ]]; then
     machine_type='main'
 else
     machine_type='ssh'
 fi
 
 if [[ $machine_type = 'main' ]]; then
-    export EDITOR='mvim'
-    plugins=(git osx vagrant more-osx git-hubflow gitignore composer httpie git-flow jira node npm sudo wd git-open)
+    export EDITOR='nvim'
+    plugins=(git osx vagrant more-osx git-hubflow gitignore composer httpie git-flow jira node npm sudo wd git-open codeception docker robo)
 else
     export EDITOR='vim'
     plugins=(git colorize gitignore)
@@ -66,7 +66,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 if [[ $machine_type = 'main' ]]; then
-    export PATH="/Users/wweaver/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:.bin/:$PATH:./vendor/bin"
+    export PATH="/Users/wweaver/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:.bin/:$PATH:./vendor/bin:./bin:/Users/wweaver/Library/Python/2.7/bin"
     # export MANPATH="/usr/local/man:$MANPATH"
 
     # You may need to manually set your language environment
@@ -88,8 +88,8 @@ if [[ $machine_type = 'main' ]]; then
     export JIRA_URL=https://jira.tripadvisor.com
 
     # aliases
-    alias vi=vim
-    alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
+    alias vi=nvim
+    alias vim=nvim
     alias v="vagrant"
     alias vcd="cd ~/git/cruisecritic-vm"
     alias vsh="vcd; vagrant ssh"
@@ -98,6 +98,7 @@ if [[ $machine_type = 'main' ]]; then
     alias reset_launchpad="defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock"
     alias vipython=". ~/dev/python/venv/bin/activate; ipython; deactivate"
     alias generate_api_key='env LC_CTYPE=C tr -dc "a-z0-9" < /dev/urandom | head -c 64 && echo'
+    alias tt='wd trtop'
 
     # Add better zsh help
     unalias run-help
@@ -115,6 +116,21 @@ if [[ $machine_type = 'main' ]]; then
     alias activate_nvm="source $NVM_DIR/nvm.sh"
 
     test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+    [[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
+
+
+    # Cancel those terrible ideas Homebrew had of forcing update every 300 s and
+    # forcing a 3 s curl on every single run.
+    export HOMEBREW_NO_AUTO_UPDATE=1
+    export HOMEBREW_NO_ANALYTICS=1
+
+    # TA Java
+    export JAVA_HOME=$(/usr/libexec/java_home)
+    export PATH=$JAVA_HOME/bin:$PATH
+    export PYTHONPATH="$PYTHONPATH:/usr/local/opt/svntr/libexec/lib/python2.7/site-packages"
+    export PATH="$PATH:/usr/local/opt/tripant/apache-ant-1.7.0/bin"
+    export TRTOP=/Users/wweaver/svn/trsrc-MAINLINE
 fi
 
 whiteboard ()
